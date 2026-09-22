@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 export type NowPlayingTrack = {
   song: string;
   artist: string;
@@ -62,12 +60,14 @@ export default function NowPlayingSection({ track }: NowPlayingSectionProps) {
             <span className={`absolute -bottom-1 -left-1 w-2 h-2 border-b border-l ${accent.corner}`} />
             <span className={`absolute -bottom-1 -right-1 w-2 h-2 border-b border-r ${accent.corner}`} />
             {track.albumArtUrl ? (
-              <Image
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
                 src={track.albumArtUrl}
-                alt="Album Art"
+                alt={`${track.song} album art`}
                 width={88}
                 height={88}
                 className="w-22 h-22 object-cover grayscale-20 group-hover:grayscale-0 transition-all duration-500"
+                referrerPolicy="no-referrer"
               />
             ) : (
               <div className="w-22 h-22 flex items-center justify-center bg-neutral-900 border border-neutral-700/50">

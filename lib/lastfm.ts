@@ -27,12 +27,23 @@ const RECENT_FALLBACK_SECONDS = 15 * 60;
 
 function pickImage(images?: LastFmImage[]) {
   if (!images?.length) return null;
-  const preferred =
-    images.find((img) => img.size === "extralarge") ??
-    images.find((img) => img.size === "large") ??
-    images.find((img) => img.size === "medium") ??
-    images[images.length - 1];
-  return preferred?.["#text"] || null;
+
+  const ranked = ["extralarge", "large", "medium", "small"] as const;
+  for (const size of ranked) {
+    const hit = images.find((img) => img.size === size)?.["#text"]?.trim();
+    if (hit && /^https?:\/\//i.test(hit)) {
+      return hit.replace(/^http:\/\//i, "https://");
+    }
+  }
+
+  for (const img of [...images].reverse()) {
+    const hit = img["#text"]?.trim();
+    if (hit && /^https?:\/\//i.test(hit)) {
+      return hit.replace(/^http:\/\//i, "https://");
+    }
+  }
+
+  return null;
 }
 
 function artistName(artist: LastFmTrack["artist"]) {
@@ -45,7 +56,6 @@ function isActivelyPlaying(track: LastFmTrack) {
     return true;
   }
 
-  // Some scrobblers only submit scrobbles (not nowplaying). Show if scrobbled very recently.
   const uts = Number(track.date?.uts);
   if (!Number.isFinite(uts) || uts <= 0) {
     return false;
@@ -53,6 +63,35 @@ function isActivelyPlaying(track: LastFmTrack) {
 
   const ageSeconds = Math.floor(Date.now() / 1000) - uts;
   return ageSeconds >= 0 && ageSeconds <= RECENT_FALLBACK_SECONDS;
+}
+
+/** Cover-art fallback when Last.fm returns empty/broken images. */
+async function getItunesArtwork(song: string, artist: string): Promise<string | null> {
+  try {
+    const term = `${artist} ${song}`.trim();
+    const url = new URL("https://itunes.apple.com/search");
+    url.searchParams.set("term", term);
+    url.searchParams.set("entity", "song");
+    url.searchParams.set("limit", "1");
+
+    const res = await fetch(url.toString(), {
+      next: { revalidate: 3600 },
+      headers: { Accept: "application/json" },
+    });
+
+    if (!res.ok) return null;
+
+    const data = (await res.json()) as {
+      results?: Array<{ artworkUrl100?: string }>;
+    };
+    const art = data.results?.[0]?.artworkUrl100;
+    if (!art) return null;
+
+    // Bump 100x100 → 300x300
+    return art.replace("100x100bb", "300x300bb").replace("100x100", "300x300");
+  } catch {
+    return null;
+  }
 }
 
 /**
@@ -108,10 +147,17 @@ export async function getLastFmNowPlaying(): Promise<NowPlayingTrack | null> {
       return null;
     }
 
+    const song = track.name;
+    const artist = artistName(track.artist);
+
+    // Prefer Apple/iTunes artwork — Last.fm covers are often empty or blocked by next/image
+    const itunesArt = await getItunesArtwork(song, artist);
+    const albumArtUrl = itunesArt ?? pickImage(track.image);
+
     return {
-      song: track.name,
-      artist: artistName(track.artist),
-      albumArtUrl: pickImage(track.image),
+      song,
+      artist,
+      albumArtUrl,
       source: "apple-music",
       href: track.url || `https://www.last.fm/user/${username}`,
     };
