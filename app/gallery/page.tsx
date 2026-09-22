@@ -1,46 +1,44 @@
 import Navbar from "@/components/navbar";
 import JsonLd from "@/components/seo/json-ld";
 import type { Metadata } from "next";
-import { SITE_URL } from "@/lib/seo";
+import { SITE_URL, createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Gallery",
-  description: "Daily life photos and snapshots.",
-  alternates: {
-    canonical: "/gallery",
-  },
-};
+  description: "Daily life photos and snapshots from Hast Herish in Toronto.",
+  path: "/gallery",
+});
 
 const galleryItems = [
   {
     title: "Daily Frame 01",
     note: "Coffee, keyboard, planning.",
-    src: "https://picsum.photos/seed/vezironi-daily-01/1200/900",
+    src: "https://picsum.photos/seed/hastherish-daily-01/1200/900",
   },
   {
     title: "Daily Frame 02",
     note: "Work session snapshot.",
-    src: "https://picsum.photos/seed/vezironi-daily-02/1200/900",
+    src: "https://picsum.photos/seed/hastherish-daily-02/1200/900",
   },
   {
     title: "Daily Frame 03",
     note: "Outside moments and routine.",
-    src: "https://picsum.photos/seed/vezironi-daily-03/1200/900",
+    src: "https://picsum.photos/seed/hastherish-daily-03/1200/900",
   },
   {
     title: "Daily Frame 04",
     note: "Creative break and ideas.",
-    src: "https://picsum.photos/seed/vezironi-daily-04/1200/900",
+    src: "https://picsum.photos/seed/hastherish-daily-04/1200/900",
   },
   {
     title: "Daily Frame 05",
     note: "Night coding setup.",
-    src: "https://picsum.photos/seed/vezironi-daily-05/1200/900",
+    src: "https://picsum.photos/seed/hastherish-daily-05/1200/900",
   },
   {
     title: "Daily Frame 06",
     note: "City and breaks.",
-    src: "https://picsum.photos/seed/vezironi-daily-06/1200/900",
+    src: "https://picsum.photos/seed/hastherish-daily-06/1200/900",
   },
 ];
 

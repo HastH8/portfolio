@@ -1,31 +1,39 @@
 import Navbar from "@/components/navbar";
 import JsonLd from "@/components/seo/json-ld";
 import type { Metadata } from "next";
-import { SITE_URL } from "@/lib/seo";
+import {
+  DISCORD_HANDLE,
+  DISCORD_USER_ID,
+  GITHUB_USERNAME,
+  SITE_EMAIL,
+  SITE_NAME,
+  SITE_URL,
+  createPageMetadata,
+} from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Contact",
-  description: "Get in touch for website development and FiveM script projects.",
-  alternates: {
-    canonical: "/contact",
-  },
-};
+  description:
+    "Contact Hast Herish for web apps, mobile apps, desktop apps, FiveM scripts, and RedM projects. Email hast.herish@icloud.com or Discord @ked.ss.",
+  path: "/contact",
+  keywords: ["contact Hast Herish", "hire Hast Herish", "ked.ss Discord"],
+});
 
 const contactItems = [
   {
     label: "Email",
-    value: "hello@vezironi.com",
-    href: "mailto:hello@vezironi.com",
+    value: SITE_EMAIL,
+    href: `mailto:${SITE_EMAIL}`,
   },
   {
     label: "GitHub",
-    value: "github.com/vezironi",
-    href: "https://github.com/vezironi",
+    value: `github.com/${GITHUB_USERNAME}`,
+    href: `https://github.com/${GITHUB_USERNAME}`,
   },
   {
     label: "Discord",
-    value: "@vezironi",
-    href: "https://discord.com/users/343250347512750091",
+    value: `@${DISCORD_HANDLE}`,
+    href: `https://discord.com/users/${DISCORD_USER_ID}`,
   },
 ];
 
@@ -39,8 +47,8 @@ export default function ContactPage() {
           url: `${SITE_URL}/contact`,
           mainEntity: {
             "@type": "Person",
-            name: "vezironi",
-            email: "hello@vezironi.com",
+            name: SITE_NAME,
+            email: SITE_EMAIL,
             url: SITE_URL,
           },
         }}
@@ -69,7 +77,9 @@ export default function ContactPage() {
                     rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
                     className="group/item border border-neutral-400/20 border-dashed px-3 py-2 hover:border-neutral-300/70 hover:bg-neutral-400/5 transition-all duration-200"
                   >
-                    <p className="text-[10px] font-mono uppercase tracking-widest text-neutral-500">{item.label}</p>
+                    <p className="text-[10px] font-mono uppercase tracking-widest text-neutral-500">
+                      {item.label}
+                    </p>
                     <p className="text-sm text-neutral-200 mt-1 flex items-center justify-between gap-2">
                       <span className="truncate">{item.value}</span>
                       <i className="fa-light fa-arrow-up-right text-[10px] text-neutral-500 group-hover/item:text-neutral-200 group-hover/item:translate-x-0.5 group-hover/item:-translate-y-0.5 transition-all duration-200" />
@@ -79,7 +89,9 @@ export default function ContactPage() {
               </div>
 
               <div className="mt-4 border border-neutral-400/20 border-dashed px-3 py-2.5">
-                <p className="text-[10px] font-mono uppercase tracking-widest text-neutral-500">Availability</p>
+                <p className="text-[10px] font-mono uppercase tracking-widest text-neutral-500">
+                  Availability
+                </p>
                 <p className="text-sm text-neutral-200 mt-1">Taking new projects this month.</p>
               </div>
             </div>
@@ -87,9 +99,16 @@ export default function ContactPage() {
             <div className="lg:col-span-2 border border-neutral-400/20 border-dashed p-4 md:p-5">
               <p className="text-xs font-mono uppercase tracking-widest text-neutral-500">Project Brief</p>
 
-              <form className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3" action="mailto:hello@vezironi.com" method="post" encType="text/plain">
+              <form
+                className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3"
+                action={`mailto:${SITE_EMAIL}`}
+                method="post"
+                encType="text/plain"
+              >
                 <label className="flex flex-col gap-1.5 md:col-span-1">
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500">Name</span>
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500">
+                    Name
+                  </span>
                   <input
                     name="name"
                     type="text"
@@ -100,7 +119,9 @@ export default function ContactPage() {
                 </label>
 
                 <label className="flex flex-col gap-1.5 md:col-span-1">
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500">Email</span>
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500">
+                    Email
+                  </span>
                   <input
                     name="email"
                     type="email"
@@ -111,18 +132,22 @@ export default function ContactPage() {
                 </label>
 
                 <label className="flex flex-col gap-1.5 md:col-span-2">
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500">Subject</span>
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500">
+                    Subject
+                  </span>
                   <input
                     name="subject"
                     type="text"
-                    placeholder="Website development / FiveM scripting"
+                    placeholder="Web app / mobile / FiveM / RedM"
                     className="border border-neutral-400/20 border-dashed bg-transparent px-3 py-2 text-sm text-neutral-100 placeholder:text-neutral-600 focus:outline-none focus:border-neutral-300/70"
                     required
                   />
                 </label>
 
                 <label className="flex flex-col gap-1.5 md:col-span-2">
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500">Message</span>
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500">
+                    Message
+                  </span>
                   <textarea
                     name="message"
                     rows={7}

@@ -4,9 +4,10 @@ type PinnedProjectProps = {
     name: string;
     description: string | null;
     language: string | null;
-    stars: number;
-    forks: number;
     htmlUrl: string;
+    tag?: string;
+    stars?: number;
+    forks?: number;
   }[];
 };
 
@@ -18,11 +19,13 @@ export default function PinnedProject({ projects }: PinnedProjectProps) {
   return (
     <section className="relative w-full mt-6 overflow-hidden">
       <div className="relative flex items-center justify-between mb-4">
-        <h2 className="text-lg uppercase text-neutral-50"><span className="tracking-[0.02px] text-blue-500">{"//"}</span> Pinned Projects</h2>
+        <h2 className="text-lg uppercase text-neutral-50">
+          <span className="tracking-[0.02px] text-blue-500">{"//"}</span> Pinned Projects
+        </h2>
         <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500">Featured</span>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
         {projects.map((project) => (
           <a
             key={project.id}
@@ -42,8 +45,7 @@ export default function PinnedProject({ projects }: PinnedProjectProps) {
 
             <div className="flex items-center gap-3 mt-3.5 text-[9px] font-mono uppercase tracking-wider text-neutral-500">
               <span>{project.language ?? "N/A"}</span>
-              <span>Stars {project.stars}</span>
-              <span>Forks {project.forks}</span>
+              {project.tag ? <span className="text-blue-400">{project.tag}</span> : null}
             </div>
           </a>
         ))}

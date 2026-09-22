@@ -1,3 +1,4 @@
+import { SITE_NAME } from "@/lib/seo";
 import Image from "next/image";
 
 type HeroSectionProps = {
@@ -27,7 +28,7 @@ export default function HeroSection({ avatarUrl, discordStatus, userDescription 
 
                 <div className="flex flex-col gap-1">
                     <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-neutral-600">- {discordStatus}</span>
-                    <p className="text-xl font-medium tracking-tight text-neutral-50 leading-none">No.1</p>
+                    <p className="text-xl font-medium tracking-tight text-neutral-50 leading-none">{SITE_NAME}</p>
                     <p className="text-sm text-neutral-500 font-mono mt-0.5">{userDescription}</p>
                 </div>
             </div>

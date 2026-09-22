@@ -6,14 +6,34 @@ type ServiceItem = {
 
 const services: ServiceItem[] = [
   {
-    title: "Website Development",
-    detail: "Modern, fast and responsive websites delivered from design to production.",
+    title: "Web Applications",
+    detail: "Full-stack web apps with Next.js, APIs, auth, dashboards, and production-ready deployments.",
     tag: "Web",
   },
   {
+    title: "Mobile Applications",
+    detail: "Cross-platform mobile apps with Expo Go and Flutter UI — clean UX and reliable releases.",
+    tag: "Mobile",
+  },
+  {
+    title: "Desktop Applications",
+    detail: "Desktop tooling and companion apps for creators, studios, and internal workflows.",
+    tag: "Desktop",
+  },
+  {
     title: "FiveM Script Development",
-    detail: "Custom server scripts, performance optimization and existing script refactoring.",
-    tag: "Script",
+    detail: "Custom FiveM resources, NUI, performance tuning, and maintainable Lua architecture.",
+    tag: "FiveM",
+  },
+  {
+    title: "RedM Script Development",
+    detail: "RedM server scripts, economy systems, and roleplay features built for stability.",
+    tag: "RedM",
+  },
+  {
+    title: "Website Development",
+    detail: "Marketing sites, portfolios, and storefronts that load fast and convert clearly.",
+    tag: "Sites",
   },
 ];
 
@@ -21,11 +41,13 @@ export default function ServicesSection() {
   return (
     <section className="relative w-full mt-6 overflow-hidden">
       <div className="relative flex items-center justify-between mb-4">
-        <h2 className="text-lg uppercase text-neutral-50"><span className="tracking-[0.02px] text-blue-500">{"//"}</span> Services</h2>
+        <h2 className="text-lg uppercase text-neutral-50">
+          <span className="tracking-[0.02px] text-blue-500">{"//"}</span> Services
+        </h2>
         <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500">What I Do</span>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
         {services.map((service) => (
           <article
             key={service.title}

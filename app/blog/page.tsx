@@ -3,15 +3,15 @@ import JsonLd from "@/components/seo/json-ld";
 import { getAllPosts } from "@/lib/blog";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { SITE_URL } from "@/lib/seo";
+import { SITE_NAME, SITE_URL, createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Blog",
-  description: "Development notes, project logs and build updates.",
-  alternates: {
-    canonical: "/blog",
-  },
-};
+  description:
+    "Development notes from Hast Herish on web apps, mobile apps, FiveM/RedM scripting, and shipping products from Toronto.",
+  path: "/blog",
+  keywords: ["Hast Herish blog", "FiveM development blog", "Toronto software engineering notes"],
+});
 
 export default function BlogPage() {
   const posts = getAllPosts();
@@ -22,7 +22,7 @@ export default function BlogPage() {
         data={{
           "@context": "https://schema.org",
           "@type": "Blog",
-          name: "vezironi Blog",
+          name: `${SITE_NAME} Blog`,
           url: `${SITE_URL}/blog`,
           blogPost: posts.map((post) => ({
             "@type": "BlogPosting",

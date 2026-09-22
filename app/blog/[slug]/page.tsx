@@ -3,7 +3,7 @@ import JsonLd from "@/components/seo/json-ld";
 import { getAllPostSlugs, getPostBySlug } from "@/lib/blog";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { SITE_NAME, SITE_URL } from "@/lib/seo";
+import { SITE_KEYWORDS, SITE_NAME, SITE_URL, absoluteUrl } from "@/lib/seo";
 
 type BlogPostPageProps = {
   params: Promise<{
@@ -21,13 +21,15 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 
   if (!post) {
     return {
-      title: "Post Not Found | vezironi",
+      title: `Post Not Found | ${SITE_NAME}`,
     };
   }
 
   return {
     title: post.title,
     description: post.excerpt,
+    keywords: [...SITE_KEYWORDS, ...(post.tags ?? [])],
+    authors: [{ name: SITE_NAME, url: SITE_URL }],
     alternates: {
       canonical: `/blog/${post.slug}`,
     },
@@ -37,6 +39,22 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       type: "article",
       url: `${SITE_URL}/blog/${post.slug}`,
       siteName: SITE_NAME,
+      locale: "en_CA",
+      publishedTime: post.date,
+      images: [
+        {
+          url: absoluteUrl("/og-image.png"),
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+      images: [absoluteUrl("/og-image.png")],
     },
   };
 }
@@ -61,11 +79,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           url: `${SITE_URL}/blog/${post.slug}`,
           author: {
             "@type": "Person",
-            name: "vezironi",
+            name: SITE_NAME,
           },
           publisher: {
             "@type": "Person",
-            name: "vezironi",
+            name: SITE_NAME,
           },
         }}
       />

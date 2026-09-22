@@ -3,7 +3,7 @@ import Link from "next/link"
 const Navbar = () => {
     return (
         <nav className='container mx-auto flex items-center justify-between px-8 py-5 border-b border-b-neutral-400/30 border-dashed'>
-            <Link href="/" className='text-sm text-neutral-400 hover:text-white'>~/vezironi</Link>
+            <Link href="/" className='text-sm text-neutral-400 hover:text-white'>~/hastherish</Link>
             <div className='flex items-center space-x-4'>
                 <Link href="/about" className='text-sm text-neutral-400 hover:text-white'>/about</Link>
                 <Link href="/gallery" className='text-sm text-neutral-400 hover:text-white'>/gallery</Link>

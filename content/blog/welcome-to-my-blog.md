@@ -1,6 +1,6 @@
 ---
-title: "Welcome to My Blog"
-excerpt: "Why I added a blog to my portfolio and what I will share here."
+title: "Welcome to the Hast Herish Blog"
+excerpt: "Notes on apps, FiveM/RedM scripting, school, and shipping products from Toronto."
 date: "2026-03-05"
 tags:
   - portfolio
@@ -8,12 +8,13 @@ tags:
 published: true
 ---
 
-This blog is where I share short notes about what I build.
+This blog is where I publish short, practical notes from building products in Toronto.
 
 Expect posts about:
 
-- web development workflow
-- frontend architecture decisions
-- project updates and behind-the-scenes notes
+- web, mobile, and desktop app work
+- FiveM and RedM scripting decisions
+- studio and founder lessons from CodeRanch, UiForge, and freelance clients
+- tooling choices that survive real deadlines
 
-If you are following my work, this is the best place to see what changed and why.
+If you are following my work, this is the fastest way to see what changed and why.

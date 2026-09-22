@@ -1,25 +1,27 @@
 ---
-title: "Next.js Performance Notes"
-excerpt: "A practical checklist I use to keep pages fast and clean."
+title: "Next.js Performance Notes for Portfolio Sites"
+excerpt: "A practical checklist I use to keep pages fast without over-engineering."
 date: "2026-03-04"
 tags:
   - nextjs
   - performance
+  - seo
 published: true
 ---
 
-A few practical rules I use on every project:
+A few rules I reuse on portfolio and product sites:
 
 - keep components small and focused
 - avoid over-fetching on the server
 - use caching intentionally
-- load media assets with clear size constraints
+- size media assets with clear constraints
+- write real metadata — titles, descriptions, canonicals, Open Graph
 
-Performance is mostly about consistent habits, not one-time tricks.
+Performance is mostly consistent habits, not one magic trick.
 
-## Example Snippet
+## Example
 
-```lua
+```ts
 export async function getServerData() {
   const res = await fetch("https://api.example.com/data", {
     next: { revalidate: 300 },
@@ -33,20 +35,8 @@ export async function getServerData() {
 }
 ```
 
-I usually combine this with small reusable components and `cache` strategy checks.
-
-## Useful Link
-
-Read the official docs: [Next.js Rendering Strategies](https://nextjs.org/docs/app/building-your-application/rendering)
-
-## Image Example
-
-![Performance dashboard preview](https://picsum.photos/1200/560?grayscale)
-
-## Quick Comparison
-
 | Strategy | Best For | Note |
 | --- | --- | --- |
 | SSG | Mostly static pages | Fast and cacheable |
-| ISR | Semi-dynamic content | Great for content updates |
+| ISR | Semi-dynamic content | Great for blogs |
 | SSR | Highly dynamic data | More server load |
