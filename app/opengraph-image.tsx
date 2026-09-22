@@ -13,56 +13,46 @@ export default function OpenGraphImage() {
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "space-between",
+          justifyContent: "center",
           background: "#0a0a0a",
-          padding: 56,
+          padding: "72px 80px",
           fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
-          position: "relative",
+          border: "24px solid #0a0a0a",
+          boxShadow: "inset 0 0 0 1px rgba(163,163,163,0.35)",
         }}
       >
-        {/* dashed frame */}
+        <div style={{ display: "flex", color: "#3b82f6", fontSize: 24, marginBottom: 28 }}>
+          {"//"} hastherish.com
+        </div>
         <div
           style={{
-            position: "absolute",
-            inset: 28,
-            border: "1.5px dashed rgba(163,163,163,0.35)",
+            display: "flex",
+            color: "#fafafa",
+            fontSize: 88,
+            fontWeight: 700,
+            letterSpacing: "-0.04em",
+            lineHeight: 1,
+            marginBottom: 24,
           }}
-        />
-
-        {/* corner brackets */}
-        <div style={{ position: "absolute", top: 40, left: 40, width: 18, height: 18, borderTop: "2px solid #3b82f6", borderLeft: "2px solid #3b82f6" }} />
-        <div style={{ position: "absolute", top: 40, right: 40, width: 18, height: 18, borderTop: "2px solid #3b82f6", borderRight: "2px solid #3b82f6" }} />
-        <div style={{ position: "absolute", bottom: 40, left: 40, width: 18, height: 18, borderBottom: "2px solid #3b82f6", borderLeft: "2px solid #3b82f6" }} />
-        <div style={{ position: "absolute", bottom: 40, right: 40, width: 18, height: 18, borderBottom: "2px solid #3b82f6", borderRight: "2px solid #3b82f6" }} />
-
-        <div style={{ display: "flex", flexDirection: "column", gap: 18, marginTop: 48, marginLeft: 36 }}>
-          <div style={{ color: "#3b82f6", fontSize: 22, letterSpacing: "0.08em" }}>
-            {"//"} hastherish.com
-          </div>
-          <div style={{ color: "#fafafa", fontSize: 84, fontWeight: 700, letterSpacing: "-0.04em", lineHeight: 1 }}>
-            Ked.ss Dev
-          </div>
-          <div style={{ color: "#a3a3a3", fontSize: 28, letterSpacing: "0.02em" }}>
-            Full Stack Developer · Toronto · York University
-          </div>
+        >
+          Ked.ss Dev
         </div>
-
+        <div style={{ display: "flex", color: "#a3a3a3", fontSize: 28, marginBottom: 56 }}>
+          Full Stack Developer · Toronto · York University
+        </div>
         <div
           style={{
             display: "flex",
             justifyContent: "space-between",
-            alignItems: "flex-end",
-            marginLeft: 36,
-            marginRight: 36,
-            marginBottom: 36,
+            width: "100%",
             color: "#737373",
             fontSize: 20,
-            letterSpacing: "0.12em",
+            letterSpacing: "0.08em",
             textTransform: "uppercase",
           }}
         >
-          <span>Web · Mobile · Desktop · FiveM · RedM</span>
-          <span>@ked.ss</span>
+          <div style={{ display: "flex" }}>Web · Mobile · Desktop · FiveM · RedM</div>
+          <div style={{ display: "flex" }}>@ked.ss</div>
         </div>
       </div>
     ),
