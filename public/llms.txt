@@ -1,0 +1,24 @@
+# hastherish.com
+
+> Hast Herish — software engineering student at York University (Toronto). Full-stack developer for web, mobile, desktop, FiveM, and RedM.
+
+- Site: https://hastherish.com
+- Contact: hast.herish@icloud.com
+- Discord: @ked.ss
+- GitHub: https://github.com/HastH8
+
+## Pages
+
+- / — Portfolio home
+- /about — Bio, languages, equipment
+- /services — Web, mobile, desktop, FiveM, RedM
+- /blog — Development notes and product logs
+- /contact — Hire / project brief
+- /gallery — Photos
+
+## Brands
+
+- CodeRanch — https://coderanch.store
+- UiForge — https://uiforge.tebex.io
+- FastScripts — https://fastscripts.tebex.io
+- 0Resmon — https://0resmon.com

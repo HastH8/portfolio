@@ -20,6 +20,14 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "cdn.simpleicons.org",
       },
+      {
+        protocol: "https",
+        hostname: "lastfm.freetls.fastly.net",
+      },
+      {
+        protocol: "https",
+        hostname: "i1.sndcdn.com",
+      },
     ],
   },
 };

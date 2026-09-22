@@ -7,21 +7,19 @@ import ExperienceSection from "@/components/home/experience-section";
 import HeroSection from "@/components/home/hero-section";
 import IconListSection from "@/components/home/icon-list-section";
 import ServicesSection from "@/components/home/services-section";
+import NowPlayingSection, { type NowPlayingTrack } from "@/components/home/now-playing-section";
 import SiteFooter from "@/components/home/site-footer";
-import SpotifySection from "@/components/home/spotify-section";
 import StatusStrip from "@/components/home/status-strip";
 import type { GithubRepo, LanyardResponse } from "@/components/home/types";
 import type { Metadata } from "next";
+import { getLastFmNowPlaying } from "@/lib/lastfm";
 import {
   DISCORD_HANDLE,
   DISCORD_USER_ID,
   GITHUB_USERNAME,
   LANYARD_API_URL,
-  SITE_EMAIL,
-  SITE_NAME,
-  SITE_URL,
-  SOCIAL_LINKS,
   createPageMetadata,
+  getPersonJsonLd,
 } from "@/lib/seo";
 
 const FALLBACK_LANYARD: LanyardResponse = {
@@ -108,9 +106,28 @@ async function getGithubProjects() {
   }
 }
 
+function getSpotifyNowPlaying(data: LanyardResponse["data"]): NowPlayingTrack | null {
+  if (data.listening_to_spotify && data.spotify) {
+    return {
+      song: data.spotify.song,
+      artist: data.spotify.artist,
+      albumArtUrl: data.spotify.album_art_url,
+      source: "spotify",
+      href: `https://open.spotify.com/track/${data.spotify.track_id}`,
+    };
+  }
+  return null;
+}
+
 export default async function Home() {
-  const discordData = await getLanyard();
-  const publicProjects = await getGithubProjects();
+  const [discordData, publicProjects, appleMusicTrack] = await Promise.all([
+    getLanyard(),
+    getGithubProjects(),
+    getLastFmNowPlaying(),
+  ]);
+
+  // Prefer Apple Music (Last.fm) when actively playing; otherwise Spotify via Lanyard
+  const nowPlaying = appleMusicTrack ?? getSpotifyNowPlaying(discordData.data);
 
   const userDescription =
     discordData.data?.activities?.find((activity) => activity.id === "custom")?.state ??
@@ -136,41 +153,7 @@ export default async function Home() {
 
   return (
     <>
-      <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "Person",
-          name: SITE_NAME,
-          url: SITE_URL,
-          jobTitle: "Software Engineering Student & Full Stack Developer",
-          email: SITE_EMAIL,
-          address: {
-            "@type": "PostalAddress",
-            addressLocality: "Toronto",
-            addressRegion: "ON",
-            addressCountry: "CA",
-          },
-          alumniOf: {
-            "@type": "CollegeOrUniversity",
-            name: "York University",
-          },
-          knowsLanguage: ["en", "tr", "ar", "fr"],
-          sameAs: Object.values(SOCIAL_LINKS),
-          knowsAbout: [
-            "Next.js",
-            "TypeScript",
-            "React",
-            "Flutter",
-            "Expo",
-            "Java",
-            "FiveM",
-            "RedM",
-            "Lua",
-            "Web Applications",
-            "Mobile Applications",
-          ],
-        }}
-      />
+      <JsonLd data={getPersonJsonLd()} />
       <Navbar />
       <main className="container mx-auto flex flex-col min-h-screen px-12">
         <HeroSection
@@ -181,10 +164,7 @@ export default async function Home() {
 
         <StatusStrip />
 
-        <SpotifySection
-          isListening={discordData.data.listening_to_spotify}
-          spotify={discordData.data.spotify}
-        />
+        <NowPlayingSection track={nowPlaying} />
 
         <PinnedProject projects={PINNED_PROJECTS} />
 

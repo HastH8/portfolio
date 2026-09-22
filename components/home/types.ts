@@ -14,6 +14,13 @@ export type LanyardResponse = {
       name: string;
       type: number;
       state?: string;
+      details?: string;
+      assets?: {
+        large_image?: string;
+        large_text?: string;
+        small_image?: string;
+        small_text?: string;
+      };
     }[];
     listening_to_spotify: boolean;
     discord_status: "online" | "idle" | "dnd" | "offline";
